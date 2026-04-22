@@ -1,8 +1,15 @@
 @echo off
-echo 🚀 Deploying via Jenkins...
+echo 🚀 Deploying...
 
 git add .
+
+git diff --cached --quiet
+if %errorlevel%==0 (
+    echo ⚠ No changes to commit → skipping push
+    exit /b
+)
+
 git commit -m "auto deploy"
 git push
 
-echo ✅ Done! Jenkins pipeline triggered.
+echo ✅ Pipeline triggered
